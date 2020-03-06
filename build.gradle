@@ -4,12 +4,50 @@ apply plugin: 'maven'
 group = 'Spring3HibernateApp'
 version = '1.8-SNAPSHOT'
 
+configurations{
+    mavenUpload
+}
+
+dependencies{
+    mavenUpload "org.apache.maven.wagon:wagon-http:2.2"
+}
 description = """Spring3HibernateApp"""
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
+repositories{
+  maven {
+        url '$url'    
+        name 'spring'
+      credentials{
+          username "krishnadubey100100"
+          password System.getenv("$password")!= null ? System.getenv("Azure DevOps Services_ENV_ACCESS_TOKEN") : vstsMavenAccessToken 
+      
+   
+    }
+}
+      }
+uploadArchives { 
+    repositories { 
+        mavenDeployer { 
+            repository(url: '$url') {
+            authentication(userName: '$userName', password:'$password'); } 
+        } 
+    } 
+}
 
 
+version = '1.8-SNAPSHOT'
+group = 'Spring3HibernateApp'
+sourceCompatibility = '1.6'
+
+apply plugin: 'maven-publish'
+publishing{
+      publications{
+          myPublication(MavenPublication) {                           
+               artifact("build/libs/spring-$version"+".war"){
+                               extension 'war'
+}}}}
 
 repositories {
         

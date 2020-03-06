@@ -41,9 +41,11 @@ jobs:
       # run tests!
       - run: gradle test
       - run:
-            name: Upload to Slack
-            command: |
-              export GIT_COMMIT_DESC=$(git log --format=oneline -n 1 | sed -E 's/^[^ ]+ (.*)$/\1/g')
-              curl -F channels=$slackchannel -F token=$slackApi -F title="${CIRCLE_PROJECT_REPONAME} | branch -> ${CIRCLE_BRANCH} | commit -> ${GIT_COMMIT_DESC}"
-      - run: gradle build
-      - run: gradle upload
+            name: Initial build
+            command: ./gradlew clean
+      - run:
+            name: Initial build
+            command: ./gradlew build
+      - run:
+            name: Initial build
+            command: ./gradlew upload
