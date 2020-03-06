@@ -20,8 +20,8 @@ repositories{
         url '$url'    
         name 'spring'
       credentials{
-          username "$userName"
-          password System.getenv("$password")
+          username "$repoUser"
+          password System.getenv("$repoPassword")!= null ? System.getenv("Azure DevOps Services_ENV_ACCESS_TOKEN") : vstsMavenAccessToken 
       
    
     }
@@ -31,7 +31,7 @@ uploadArchives {
     repositories { 
         mavenDeployer { 
             repository(url: '$url') {
-            authentication(userName: '$userName', password:'$password'); } 
+            authentication(userName: '$repoUser', password:'$repoPassword'); } 
         } 
     } 
 }
