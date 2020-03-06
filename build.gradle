@@ -20,8 +20,8 @@ repositories{
         url '$url'    
         name 'spring'
       credentials{
-          username "krishnadubey100100"
-          password System.getenv("$password")!= null ? System.getenv("Azure DevOps Services_ENV_ACCESS_TOKEN") : vstsMavenAccessToken 
+          username "$userName"
+          password System.getenv("$password")
       
    
     }
